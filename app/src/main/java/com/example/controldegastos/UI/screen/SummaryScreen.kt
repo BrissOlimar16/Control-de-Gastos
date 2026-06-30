@@ -22,11 +22,12 @@ import com.example.controldegastos.UI.Gastos
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SummaryScreen(navController: NavController, viewModel: Gastos) {
-    // Datos simulados (que más adelante vendrán del ViewModel y la Base de Datos)
-    val presupuestoInicial = 3000.0
-    val totalGastado = 2150.0
-    val saldoRestante = presupuestoInicial - totalGastado
-    val porcentajeGastado = (totalGastado / presupuestoInicial) * 100
+    val presupuestoInicial = viewModel.presupuestoInicial
+    val totalGastado = viewModel.totalGastado
+    val saldoRestante = viewModel.saldoRestante
+
+    // Evita la división entre cero si regresa al inicio
+    val porcentajeGastado = if (presupuestoInicial > 0) (totalGastado / presupuestoInicial) * 100 else 0.0
 
     // Lógica del Semáforo Financiero para determinar el color de alerta
     val (colorSemaforo, mensajeAlerta) = when {

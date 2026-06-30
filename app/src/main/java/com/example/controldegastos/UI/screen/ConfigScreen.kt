@@ -115,19 +115,23 @@ fun ConfigScreen(navController: NavController, viewModel: Gastos) {
         Spacer(modifier = Modifier.weight(1f))
 
         // Botón para avanzar al Planificador (Paso 2)
+        // Modifica el onClick de tu botón en ConfigScreen.kt
         Button(
             onClick = {
-                if (presupuestoInput.isBlank() || presupuestoInput.toDoubleOrNull() == null) {
+                val monto = presupuestoInput.toDoubleOrNull()
+                if (presupuestoInput.isBlank() || monto == null) {
                     errorMessage = "Por favor, ingresa un monto numérico válido."
                 } else {
                     errorMessage = ""
-                    // Avanza al planificador por tarjetas
+
+                    // 🔥 AQUÍ SE GUARDA EN EL VIEWMODEL EL DATO REAL:
+                    viewModel.guardarConfiguracionInicial(monto, periodoInput)
+
+                    // Avanza al planificador
                     navController.navigate(Screen.Planner.route)
                 }
             },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp)
+            modifier = Modifier.fillMaxWidth().height(50.dp)
         ) {
             Text("Iniciar Planificación 🚀", fontSize = 16.sp)
         }
