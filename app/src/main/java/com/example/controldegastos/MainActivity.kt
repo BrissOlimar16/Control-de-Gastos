@@ -13,6 +13,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.controldegastos.UI.Screen
 import com.example.controldegastos.UI.screen.*
 import com.example.controldegastos.ui.theme.ControlDeGastosTheme
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.controldegastos.UI.Gastos
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +27,9 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val navController = rememberNavController()
 
+                    // Instancia única del ViewModel para toda la app
+                    val gastosViewModel: Gastos = viewModel()
+
                     NavHost(
                         navController = navController,
                         startDestination = Screen.Welcome.route
@@ -33,13 +38,16 @@ class MainActivity : ComponentActivity() {
                             WelcomeScreen(navController = navController)
                         }
                         composable(Screen.Config.route) {
-                            ConfigScreen(navController = navController)
+                            // Le pasamos el cerebro a la configuración
+                            ConfigScreen(navController = navController, viewModel = gastosViewModel)
                         }
                         composable(Screen.Planner.route) {
-                            PlannerScreen(navController = navController)
+                            // Le pasamos el cerebro al planificador
+                            PlannerScreen(navController = navController, viewModel = gastosViewModel)
                         }
                         composable(Screen.Summary.route) {
-                            SummaryScreen(navController = navController)
+                            // Le pasamos el cerebro al resumen final
+                            SummaryScreen(navController = navController, viewModel = gastosViewModel)
                         }
                     }
                 }

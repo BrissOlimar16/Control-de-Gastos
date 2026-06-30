@@ -13,10 +13,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.controldegastos.UI.Screen
+import com.example.controldegastos.UI.Gastos
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ConfigScreen(navController: NavController) {
+fun ConfigScreen(navController: NavController, viewModel: Gastos) {
     // Estados locales temporales para capturar lo que escribe el usuario
     var presupuestoInput by remember { mutableStateOf("") }
     var periodoInput by remember { mutableStateOf("Mensual") }
